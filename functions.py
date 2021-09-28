@@ -1,3 +1,6 @@
+import numpy as np
+import pandas as pd
+
 def ExtractData():
     cars = list()
 
@@ -7,7 +10,13 @@ def ExtractData():
             for i in range(len(features)):
                 features[i] = ToNumerical(features[i], i)
             cars.append(features)
-    
+    cars = np.array(cars)
+    cars = pd.DataFrame(
+        cars, 
+        columns=[
+                "buying", "maint", "doors", "persons", "lug_boot", "safety", "class"
+            ]
+        )
     return cars
             
 def ToNumerical(text, i):
