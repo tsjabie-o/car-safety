@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 
 def ExtractData():
+    """
+    Takes the input from the specified file and processes it to
+    return a pandas Dataframe object
+    """
     cars = list()
 
     with open("./data/car.data") as data:
@@ -18,8 +22,22 @@ def ExtractData():
             ]
         )
     return cars
-            
+
+def SplitData(cars):
+    """
+    Takes the Dataframe object and splits it into independent variables and a dependent variable
+    """
+    X = cars.drop("safety", axis=1)
+    X = X.values
+    y = cars["safety"]
+    y = y.values
+    return (X,y)
+
 def ToNumerical(text, i):
+    """
+    Uses text and an index to change strings from the data to 
+    a numerical value. This makes it easier to compute distances
+    """
     database = {
         0:{
             "low":0,
