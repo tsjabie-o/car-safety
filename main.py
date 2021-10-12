@@ -8,7 +8,7 @@ k = 100
 
 classifier = k_NN(k, X, y)
 
-testDatapoint = np.array([3, 3, 0, 0, 0, 0])
+testDatapoint = np.array([1, 1, 1, 2, 0, 3])
 
 testSafety = classifier.Classify(testDatapoint)
 
