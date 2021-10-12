@@ -21,7 +21,7 @@ def ExtractData():
                 "buying", "maint", "doors", "persons", "lug_boot", "safety", "class"
             ]
         )
-    return cars
+    return SplitData(cars)
 
 def SplitData(cars):
     """
