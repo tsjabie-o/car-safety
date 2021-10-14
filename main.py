@@ -1,15 +1,13 @@
 import data_processing
 from k_NN import k_NN
-import numpy as np
 
-X, y = data_processing.ExtractData()
-k = 100
+# Variables
+trainingsize = int(input())
+k = int(input())
+
+((X_train, y_train), (X_test, y_test)) = data_processing.ExtractData(trainingsize)
 
 
-classifier = k_NN(k, X, y)
+classifier = k_NN(k, X_train, y_train)
 
-testDatapoint = np.array([1, 1, 1, 2, 0, 3])
-
-testSafety = classifier.Classify(testDatapoint)
-
-print(testSafety)
+print(classifier.Test(X_test, y_test))

@@ -7,7 +7,6 @@ class k_NN:
         self.k = k
         self.X = X
         self.y = y
-        print(self.X)
 
     def CalcDistances(self, datapoint):
         """
@@ -15,17 +14,14 @@ class k_NN:
         to the datapoint
         """
         distances = np.linalg.norm(self.X - datapoint, axis=1)
-        print(distances)
         return distances
 
     def FindNearestNeighbors(self, distances):
         nnIDs = distances.argsort()[:self.k]
-        print(len(nnIDs))
         return nnIDs
 
     def Vote(self, nnIDs):
         neighbourSafety = self.y[nnIDs]
-        print(neighbourSafety)
         winner = stats.mode(neighbourSafety)
         return winner
 
@@ -34,3 +30,13 @@ class k_NN:
         nnIDs = self.FindNearestNeighbors(distances)
         winner = self.Vote(nnIDs)
         return winner
+
+    def Test(self, X_test, y_test):
+        amt_corr = 0
+        for i in range(len(X_test)):
+            prediction = self.Classify(X_test[i])
+            actual = y_test[i]
+            if actual == int(str(prediction)[23]):
+                amt_corr += 1
+        acc = amt_corr / len(X_test)
+        return acc

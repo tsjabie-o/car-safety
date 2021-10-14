@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def ExtractData():
+def ExtractData(trainingsize):
     """
     Takes the input from the specified file and processes it to
     return a pandas Dataframe object
@@ -21,17 +21,30 @@ def ExtractData():
                 "buying", "maint", "doors", "persons", "lug_boot", "safety", "class"
             ]
         )
-    return SplitData(cars)
+    return SplitData(cars, trainingsize)
 
-def SplitData(cars):
+def SplitData(cars, trainingsize):
     """
     Takes the Dataframe object and splits it into independent variables and a dependent variable
     """
-    X = cars.drop("safety", axis=1)
-    X = X.values
-    y = cars["safety"]
-    y = y.values
-    return (X,y)
+    cars_train = cars.iloc[0:trainingsize - 1, 0:]
+    cars_test = cars.iloc[trainingsize:1727, 0:]
+
+    # make training set
+
+    X_train = cars_train.drop("safety", axis=1)
+    X_train = X_train.values
+    y_train = cars_train["safety"]
+    y_train = y_train.values
+
+    # Make test set
+
+    X_test = cars_test.drop("safety", axis=1)
+    X_test = X_test.values
+    y_test = cars_test["safety"]
+    y_test = y_test.values
+
+    return ((X_train, y_train), (X_test, y_test))
 
 def ToNumerical(text, i):
     """
